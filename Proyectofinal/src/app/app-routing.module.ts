@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
-
-
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 const redireccionarLogin = () => redirectUnauthorizedTo(['/registrar']);
 
 const routes: Routes = [
@@ -52,7 +51,12 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redireccionarLogin },
     loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
+
 ];
 
 @NgModule({
